@@ -14,6 +14,7 @@ Feb. 2026
 import matplotlib.pyplot as plt
 import pandas as pd
 plt.rcParams['font.family'] = 'Times New Roman'
+import argparse
 
 def genotype_df_generator (length_fitness_dic, init_length):
     '''
@@ -429,11 +430,15 @@ def genotype_hitmap(population):
     fig.colorbar(im1, ax = ax)
     plt.show()
 
-
+parser = argparse.ArgumentParser()
+parser.add_argument("--pA1", type=float)
+parser.add_argument("--pB1", type=float)
+parser.add_argument("--rec_rate", type=float)
+args = parser.parse_args()
 TIME = 100
-INIT_P_A1   = float(input('Please enter the initial frequency of A1 \n'))
-INIT_P_B1   = float(input('Please enter the initial frequency of B1 \n'))
-REC_RATE    = float(input('Please enter the recombination rate \n'))
+INIT_P_A1   = args.pA1
+INIT_P_B1   = args.pB1
+REC_RATE    = args.rec_rate
 fitness_dic = {0: 0.7, 1:0.9, 2:1, 3:0.9, 4:0.7}
 INIT_LENGTH = 10
 
