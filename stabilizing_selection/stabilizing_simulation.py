@@ -13,8 +13,7 @@ Feb. 2026
 
 import matplotlib.pyplot as plt
 import pandas as pd
-
-
+plt.rcParams['font.family'] = 'Times New Roman'
 
 def genotype_df_generator (length_fitness_dic, init_length):
     '''
@@ -355,6 +354,7 @@ def simulation_run (**kwargs):
     return population, haplotype_dataframe
 
 def ld_variance_diagram(parameters_dataframe):
+    plt.rcParams['figure.dpi'] = 150
     fig, ax = plt.subplots(nrows=1, ncols= 2, figsize=(11, 6))
     fig.suptitle('''\n Stabilizing Selection: LD and Variance \n''', fontsize = 16)
     ax[0].grid(True, linestyle = '-.')
@@ -370,6 +370,7 @@ def ld_variance_diagram(parameters_dataframe):
     plt.show()
 
 def phenotype_histogram(population,init_length):
+    plt.rcParams['figure.dpi'] = 150
     fig, ax = plt.subplots(nrows=3, ncols= 3, figsize=(11, 10), sharex=True, sharey=True)
     fig.suptitle('''\n Stabilizing Selection: Phenotypes Histogram \n''', fontsize = 16)
     counter = 0
@@ -384,6 +385,48 @@ def phenotype_histogram(population,init_length):
                 ax[i, j].set( xlabel = 'Phenotype (wing length)')
             counter +=1
     fig.tight_layout()
+    plt.show()
+
+def genotype_hitmap(population):
+    mid = len(population) //2 
+    df_1 = population.iloc[0:mid+1]
+    df_2 = population.iloc[mid:]
+    plt.rcParams['figure.dpi'] = 150
+    fig , ax = plt.subplots(1,2, figsize = (16, 11))
+    fig.suptitle('\n Stablizing Selection: Genotype Frequency \n', fontsize = 16)
+
+    im1 = ax[0].imshow(
+        df_1.values,
+        aspect = 'auto',
+        vmin = 0,
+        vmax = 1
+    )
+    ax[0].set_xticks(
+        range(len([*df_1.columns])),
+        labels = [*df_1.columns],
+        rotation = 45,
+        ha="right",
+        rotation_mode="anchor"
+    )
+    ax[0].set(ylabel = 'Generations')
+    im2 = ax[1].imshow(
+        df_2.values,
+        aspect = 'auto',
+        vmin = 0,
+        vmax = 1
+    )
+    ax[1].set_xticks(
+        range(len([*df_2.columns])),
+        labels = [*df_2.columns],
+        rotation = 45,
+        ha="right",
+        rotation_mode="anchor"
+    )
+    ax[1].set_yticks(
+        range(0, df_2.shape[0]+1, 10),
+        labels = list(range(df_1.shape[0], population.shape[0]+1, 10))
+    )
+    fig.colorbar(im1, ax = ax)
     plt.show()
 
 
@@ -411,3 +454,4 @@ parameters_dataframe['Phen_var'] = variance_calc (
 
 ld_variance_diagram(parameters_dataframe)
 phenotype_histogram(pop,INIT_LENGTH)
+genotype_hitmap(pop)
