@@ -19,9 +19,7 @@ Fitness is modeled as a Gaussian functiton centered on an optimal phenotype (12 
 ##### Selection Procedure
 Selection is implemented based on individual phenotypes. Fitness in calculated for each individual, fitness values are normalized relative to the population. Individuals contribute to the mating pool proportional to their fitness. 
 For each individual, the phenotype $z$ is calculated as the sum of genetic contributions across loci, and its frequency after selection is calculated as follows: 
-$$
-f(z)_{after selection} = \frac{w_z \cdot f(z) } {\bar{w}}
-$$
+$$f(z)_{after selection} = \frac{w_z \cdot f(z) } {\bar{w}}$$
 
 where 
 * $w_z$ is the average fitness of individuals with phenotype $z$.
