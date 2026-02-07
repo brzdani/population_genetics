@@ -91,11 +91,11 @@ def diagram_generator (heteros):
     ax.set(ylim = (0, 0.5), xlabel = 'Generations', ylabel = 'Heterozygosity')
     plt.show()
 
-if __name__ == '__main':
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--GEN", type = int)
     parser.add_argument("--N", type = float)
-    parser.add_argument("---R", type=float)
+    parser.add_argument("--R", type=float)
     parser.add_argument("--K", type=float)
     parser.add_argument("--H", type=float)
     args = parser.parse_args()
@@ -106,4 +106,4 @@ if __name__ == '__main':
     GEN = args.GEN
     H = args.H
 
-    diagram_generator (heterozygocity(n = N, r = R, k = K, gen = GEN, h = H))
+    diagram_generator (heterozygosity(n = N, r = R, k = K, gen = GEN, h = H))
